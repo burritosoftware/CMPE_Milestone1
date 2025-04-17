@@ -1,20 +1,19 @@
-## <remove all of the example text and notes in < > such as this one>
-
 ## Functional Requirements
-1. requirement <should be 1 sentence that describes requirement>
-2. requirement
-3. requirement
-4. requirement
-5. requirement
-6. requirement
-7. requirement
-8. requirement
-9. requirement
-10. requirement
-11. requirement
-12. requirement
-13. requirement
-14. requirement
+1. A visitor can create an account by providing a username, email, and password.  
+2. Registered users can log in using their email and password.  
+3. Logged-in users can log out of their account securely.  
+4. Logged-in users can add new recipes with title, description, ingredients, and instructions.  
+5. Users can update their own recipes after creation.  
+6. Users can delete their own recipes.  
+7. Anyone can view the details of a recipe including ingredients and instructions.  
+8. Users can search recipes by title or ingredient keywords.  
+9. Users can rate a recipe from 1 to 5 stars.  
+10. Users can leave comments on a recipe.  
+11. Users can view their own profile, including their submitted recipes.  
+12. Users can update their display name, email, or password.  
+13. Users can save or 'favorite' recipes for quick access later.  
+14. Homepage or main recipe list shows all recipes available in the database.  
+15. Users can filter recipes by tags like 'vegan', 'dessert', etc.
 
 <using the syntax [](images/ui1.png) add images in a folder called images/ and place sketches of your webpages>
 
