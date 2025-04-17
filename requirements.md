@@ -96,6 +96,12 @@
     user clicks submit,
     system validates entry, 
     system stores entry in db
+11. View User Profile
+    - user is logged in
+    - user clicks my profile button in the top left
+    - system redirects user to view user profile,
+    user profile is rendered for user
+12. 
 
 10. <Try to stick to a max of 12 steps>
 - **Primary Postconditions:** <can be a list or short description>
