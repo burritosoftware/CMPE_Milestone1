@@ -1,0 +1,34 @@
+<html>
+<head>
+    {% include 'water.html' %}
+    <title>Recipe App - Login</title>
+</head>
+<body>
+    <a href="/">Home</a>
+    <br>
+    <br>
+    <a href="/signup">Sign Up</a>
+    <h1>Log In</h1>
+    <h2>You must log in to view or create recipes.</h2>
+    {% for message in get_flashed_messages() %}
+    <h3>{{message}}</h3>
+    {% endfor %}
+    <form action="" method="POST" novalidate>
+        {{form.hidden_tag()}}
+        <p>
+            {{form.username.label}}
+            <br>
+            {{form.username()}}
+        </p>
+
+        <p>
+            {{form.password.label}}
+            <br>
+            {{form.password()}}
+        </p>
+
+        <p>Remember Me {{form.remember_me()}}</p>
+        <p>{{form.submit()}}</p>
+    </form>
+</body>
+</html>

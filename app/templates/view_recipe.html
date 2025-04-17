@@ -1,0 +1,20 @@
+<html>
+<head>
+  {% include 'water.html' %}
+  <title>Recipe App - View Recipe</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <h1>View Recipe</h1>
+    <h2>Recipe: {{recipe.title}}</h2>
+    <h3>Author: {{user.username}}</h3>
+    <ul>
+        <li>Created: {{recipe.created}}</li>
+        <li>Description: <p>{{recipe.description}}</p></li>
+        <li>Ingredients: <p>{{recipe.ingredients}}</p></li>
+        <li>Instructions: <p>{{recipe.instructions}}</p></li>
+    </ul>
+    <br>
+    <a href="{{recipe.id}}/delete">Delete Recipe</a>
+</body>
+</html>
