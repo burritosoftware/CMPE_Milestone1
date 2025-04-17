@@ -15,104 +15,154 @@
 14. Homepage or main recipe list shows all recipes available in the database.  
 15. Users can filter recipes by tags like 'vegan', 'dessert', etc.
 
-<using the syntax [](images/ui1.png) add images in a folder called images/ and place sketches of your webpages>
+TODO: add screenshots of webpages later
 
 ## Non-functional Requirements
-1. non-functional
-2. non-functional
+1. non-functional: html should have css to increase readibility  
+2. non-functional: user can use accessibility option to select dyslexic font
 
-<each of the 14 requirements will have a use case associated with it>
-## Use Cases <Add name of who will write (this specific requirement) and implement (in subsequent milestones) the use case below>
-1. Use Case Name (Should match functional requirement name)
-- **Pre-condition:** <can be a list or short description>
-- **Trigger:** <can be a list or short description>
+## Use Cases
+1. User Registration (Zyjay)
+- **Pre-condition:** User must be on the index page
+- **Trigger:** Visitor clicks on login/register button
 - **Primary Sequence:**
-1. User Registration
-    - user must be on the index page
-    - visitor clicks on login/register button
-    - visitor inputs valid user,email,pass, into registration form,
-    visitor submits registration form,
-    system validates the provided information,
-    system creates the account,
-    system redirects visitor to login page
-2. User Login
-    - user must be on the login/register page
-    - user must click on login button
-    - user inputs valid user, pass, submits login,
-    system validates login information,
-    system redirects user to dashboard. 
-3. User Logout
-    - user must be logged in
-    - user must click on logout butto
-    - system recieves logout request,
-    system clear session,
-    user is redirected to login page
-4. Create Recipe
-    - user must be logged in and on index page
-    - user clicks on create recipe button
-    - user is redirected to new recipe form,
-    user fills out new recipe form,
-    system validates the provided recipe,
-    system saves and links created recipe to user in db,
-    user is returned to index,
-5. Edit Recipe
-    - user must be logged in and the creator of the recipe
-    - user must click on edit recipe
-    - user is redirected to edit recipe page,
-    user inputs changes to recipe,
-    user clicks done,
-    system validates recipe,
-    user is returned to view recipe
-6. Delete Recipe
-    - user must be logged in and the creator of the recipe
-    - user must click on edit recipe, then click delete
-    - user is asked to confirm deletion,
-    system validates response,
-    system queries db and deletes recipe,
-    user is redirected to view index
-7. View Recipe
-    - visitor must be on index page, click view all button
-    - visitor finds recipe of interest, clicks view recipe button
-    - visitor is redirected to view recipe of given recipe..
-8. Search Recipe
-    - visitor is on index page
-    - visitor clicks on search bar
-    - visitor types in name, system fuzzy searches name,
-    most matching is displayed sorted
-9. Rate Recipe
-    - user is logged in and viewing recipe
-    - user clicks rate recipe button
-    - a rating display is rendered for user,
-    user selects number rating,
-    user is prompted with optional text rating,
-    user clicks submit,
-    system validates response,
-    user is redirected to view recipe
-10. Comment on Recipe
-    - user is logged in and viewing recipe
-    - user clicks comment button
-    - text box rendered for user,
-    user enters text,
-    user clicks submit,
-    system validates entry, 
-    system stores entry in db
-11. View User Profile
-    - user is logged in
-    - user clicks my profile button in the top left
-    - system redirects user to view user profile,
-    user profile is rendered for user
-12. 
+  1. Visitor inputs valid username, email, and password into registration form
+  2. Visitor submits registration form
+  3. System validates the provided information
+  4. System creates the account
+  5. System notifies user that an account has been successfully created
+  6. System redirects visitor to login page
+- **Primary Postconditions:** Account is created and user is redirected to login
+- **Alternate Sequence:**
+  1. User provides invalid data
+  2. System displays appropriate error messages
 
-10. <Try to stick to a max of 12 steps>
-- **Primary Postconditions:** <can be a list or short description>
-- **Alternate Sequence:** <you can have more than one alternate sequence to
-describe multiple issues that may arise and their outcomes>
-1. Ut enim ad minim veniam, quis nostrum e
-2. Ut enim ad minim veniam, quis nostrum e
-3. ...
-- **Alternate Sequence <optional>:** <you can have more than one alternate sequence to describe multiple issues that may arise>
+2. User Login (Zyjay)
+- **Pre-condition:** User must be on the login/register page
+- **Trigger:** User clicks on login button
+- **Primary Sequence:**
+  1. User inputs valid username and password
+  2. User submits login form
+  3. System validates login information
+  4. System redirects user to dashboard
+- **Primary Postconditions:** User is logged in and on dashboard
 
-1. Ut enim ad minim veniam, quis nostrum e
-2. Ut enim ad minim veniam, quis nostrum e
-3. ...
+3. User Logout (Zyjay)
+- **Pre-condition:** User must be logged in
+- **Trigger:** User clicks logout button
+- **Primary Sequence:**
+  1. System receives logout request
+  2. System clears session
+  3. User is redirected to login page
+- **Primary Postconditions:** Session terminated
 
+4. Create Recipe (Zyjay)
+- **Pre-condition:** User must be logged in and on index page
+- **Trigger:** User clicks on create recipe button
+- **Primary Sequence:**
+  1. User is redirected to new recipe form
+  2. User fills out recipe form
+  3. System validates recipe
+  4. System saves and links recipe to user
+  5. User is returned to index
+- **Primary Postconditions:** Recipe saved and linked to user
+
+5. Edit Recipe (Zyjay)
+- **Pre-condition:** User must be logged in and creator of the recipe
+- **Trigger:** User clicks on edit recipe
+- **Primary Sequence:**
+  1. User is redirected to edit recipe page
+  2. User makes changes
+  3. User clicks done
+  4. System validates and saves changes
+  5. User is redirected to view recipe
+- **Primary Postconditions:** Recipe updated
+
+6. Delete Recipe (Noah)
+- **Pre-condition:** User is logged in and the recipe's creator
+- **Trigger:** User clicks delete in the edit page
+- **Primary Sequence:**
+  1. User confirms deletion
+  2. System validates confirmation
+  3. System deletes recipe from database
+  4. User is redirected to index
+- **Primary Postconditions:** Recipe removed
+
+7. View Recipe (Noah)
+- **Pre-condition:** Visitor is on index page
+- **Trigger:** Visitor clicks "View Recipe" button
+- **Primary Sequence:**
+  1. Visitor selects a recipe
+  2. System redirects to selected recipe’s detail view
+- **Primary Postconditions:** Recipe displayed
+
+8. Search Recipe (Noah)
+- **Pre-condition:** Visitor is on index page
+- **Trigger:** Visitor clicks search bar and types
+- **Primary Sequence:**
+  1. System performs fuzzy search by title
+  2. Matching recipes are shown sorted by relevance
+- **Primary Postconditions:** Search results shown
+
+9. Rate Recipe (Noah)
+- **Pre-condition:** User is logged in and viewing a recipe
+- **Trigger:** User clicks "Rate Recipe"
+- **Primary Sequence:**
+  1. Rating interface appears
+  2. User selects a rating
+  3. Optional text comment is entered
+  4. User submits rating
+  5. System validates and stores it
+  6. User is redirected to recipe view
+- **Primary Postconditions:** Rating saved
+
+10. Comment on Recipe (Noah)
+- **Pre-condition:** User is logged in and viewing a recipe
+- **Trigger:** User clicks "Comment" button
+- **Primary Sequence:**
+  1. Comment box appears
+  2. User types and submits comment
+  3. System validates and stores comment
+- **Primary Postconditions:** Comment stored in database
+
+11. View User Profile (Stevie)
+- **Pre-condition:** User is logged in
+- **Trigger:** User clicks "My Profile"
+- **Primary Sequence:**
+  1. System redirects to profile page
+  2. Profile details are rendered
+- **Primary Postconditions:** Profile viewed
+
+12. Edit User Profile (Stevie)
+- **Pre-condition:** User is logged in
+- **Trigger:** User clicks "Edit Profile"
+- **Primary Sequence:**
+  1. Form displays current username and email
+  2. Password reset fields shown
+  3. User updates fields and submits
+  4. System saves changes and redirects back
+- **Primary Postconditions:** Profile updated
+
+13. Save Recipe (Favorites) (Stevie)
+- **Pre-condition:** User is logged in
+- **Trigger:** User clicks "Save" on a recipe
+- **Primary Sequence:**
+  1. Recipe is saved to user’s favorites
+  2. System shows confirmation
+- **Primary Postconditions:** Recipe marked as favorite
+
+14. View All Recipes (Stevie)
+- **Pre-condition:** Visitor is on index page
+- **Trigger:** Visitor clicks "View All Recipes"
+- **Primary Sequence:**
+  1. Recipe list page is rendered
+  2. Scrollable list of recipes shown
+- **Primary Postconditions:** All recipes shown
+
+15. Filter Recipes (Stevie)
+- **Pre-condition:** Recipes are pre-tagged
+- **Trigger:** Visitor filters on “View All Recipes” page
+- **Primary Sequence:**
+  1. Visitor clicks filter and selects tags
+  2. Recipes with matching tags are shown
+- **Primary Postconditions:** Filtered recipes displayed
