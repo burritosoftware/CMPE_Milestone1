@@ -1,22 +1,52 @@
 from app import myapp_obj
 from flask import render_template, flash, redirect, url_for, request
 from app.forms import LoginForm, SignupForm, RecipeForm
-from app.models import User, Recipe
+from app.models import User, Recipe, Comment
 from app import db
 from flask_login import login_required, login_user, logout_user, current_user
 from datetime import datetime
 
 ### UNAUTHENTICATED ROUTES ###
+
+# This route is the main page for the recipe app
 @myapp_obj.route("/")
-@myapp_obj.route("/recipes")
+def main():
+    return render_template("index.html")
+
+# This route allows the user to view all the recipes
+@myapp_obj.route("/recipes", methods=['GET','POST'])
+@login_required
 def view_all_recipes():
     # For each recipe, we will get the title and store it in the recipes list
     recipes = []
     for recipe in Recipe.query.all():
         recipes.append((recipe.title, User.query.get(recipe.author).username, recipe.id))
-    
+
     # We will pass the recipes list to the template to allow it to create the recipes page
     return render_template("all_recipes.html", recipes=recipes)
+
+# This route allows the user to search for recipes using title or ingredient
+# keywords
+@myapp_obj.route('/search')
+@login_required
+def search():
+    query = request.args.get("query", "").lower().strip()
+    keywords = query.split()
+
+    # Filter recipes with keywords from title or ingredients
+    recipes = Recipe.query.filter(
+        db.or_(
+            *[Recipe.title.ilike(f"%{keyword}%") for keyword in keywords] + 
+            [Recipe.ingredients.ilike(f"%{keyword}%") for keyword in keywords]
+        )
+    ).all()
+   
+    # Check if recipes is empty or None
+    if not recipes:
+        print("No recipes found.")
+
+    # Display search results
+    return render_template("search_results.html", recipes=recipes, query=query)
 
 @myapp_obj.route('/login', methods=['GET', 'POST'])
 def login():
@@ -35,7 +65,7 @@ def login():
 
                 next = request.args.get('next')
 
-                return redirect(next or url_for('view_all_recipes'))
+                return redirect(next or url_for('index'))
         
         # If the details were wrong, display an error and refresh to try again
         flash('Login details were incorrect.')
@@ -97,9 +127,11 @@ def new_recipe():
     # Return recipe form page
     return render_template('create_recipe.html', form=form)
 
-@myapp_obj.route("/recipe/<integer>")
+# This route allows user to view details of a single recipe
+@myapp_obj.route("/recipe/<int:integer>")
 @login_required
 def view_single_recipe(integer):
+
     # Get the recipe ID from the route
     recipe = Recipe.query.get(integer)
     # Get the author from the recipe (used for showing author name)
@@ -108,15 +140,46 @@ def view_single_recipe(integer):
     # Return recipe details page
     return render_template('view_recipe.html', recipe=recipe, user=user)
 
-@myapp_obj.route("/recipe/<integer>/delete")
+# This route deletes a recipe
+@myapp_obj.route("/delete_recipe/<int:recipe_id>", methods=['POST'])
 @login_required
-def delete_recipe(integer):
+def delete_recipe(recipe_id):
+    print("Deleting recipe") 
     # Get the recipe ID from the route
-    recipe = Recipe.query.get(integer)
+    recipe = Recipe.query.get(recipe_id)
 
     # Delete the recipe
     db.session.delete(recipe)
     db.session.commit()
+    
+    flash('Recipe deleted successfully.')
+    #return redirect(url_for('index'))
 
-    # Redirect back to homepage
+    # Redirect back to view all recipes page
     return redirect(url_for('view_all_recipes'))
+
+# This route adds a comment to a recipe
+@myapp_obj.route('/add_comment/<int:recipe_id>', methods=['POST'])
+def add_comment(recipe_id):
+    
+    # Get the form inputs for the content and ratings
+    content = request.form['content']
+    rating = int(request.form['rating'])
+    
+    # Get the logged-in user
+    user = current_user 
+    
+    # Add comment to the database - many to one relationship with recipe
+    new_comment = Comment(content=content, rating=rating, recipe_id=recipe_id, user_id=user.id)
+    db.session.add(new_comment)
+    db.session.commit()
+
+    # Redirect back to same recipe page
+    return redirect(url_for('view_single_recipe', integer=recipe_id))
+
+# This route confirms a deletion of a recipe
+@myapp_obj.route('/recipe/<int:recipe_id>/confirm_delete')
+@login_required
+def confirm_delete(recipe_id):
+    recipe = Recipe.query.get(recipe_id)
+    return render_template('confirm_delete.html', recipe=recipe)

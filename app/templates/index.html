@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include 'water.html' %}
+    <title>Recipe App - Main Page</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <div style="margin-top: 20px;">
+        <form action="/recipes" method="POST">
+            <button type="submit">View Recipe</button>
+        </form>
+    <div>
+    
+    <br>
+    
+     <!-- Search Form -->
+    <form action="/search" method="GET">
+        <input type="text" name="query" placeholder="Search recipes..." required>
+        <button type="submit">Search</button>
+    </form>
+    
+    <style>
+      .search-bar {
+        width: 100%
+        padding: 8px;
+        font-size: 16px;
+      }
+    </style>
+
+</body>
+</html>

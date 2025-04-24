@@ -15,6 +15,42 @@
         <li>Instructions: <p>{{recipe.instructions}}</p></li>
     </ul>
     <br>
-    <a href="{{recipe.id}}/delete">Delete Recipe</a>
+    
+    <a href="{{ url_for('confirm_delete', recipe_id=recipe.id) }}" class="btn btn-danger">
+        Delete Recipe
+    </a>
+    
+    <hr>
+    <h3>Comments & Ratings</h3>
+    
+    <ul>
+        {% for comment in recipe.comments %}
+            <li>
+                <p><strong>{{ comment.author.username }}</strong> said:</p>
+                ⭐ {{ comment.rating }} / 5<br>
+                {{ comment.content }}<br>
+                <small>{{ comment.timestamp.strftime('%b %d, %Y at %H:%M') }}</small>
+            </li>
+        {% else %}
+            <li>No comments yet.</li>
+        {% endfor %}
+    </ul>
+    
+    <hr>
+    <h3>Leave a Comment</h3>
+    
+    <form method="POST" action="{{ url_for('add_comment', recipe_id=recipe.id) }}">
+        <textarea name="content" rows="3" placeholder="Write your comment..." required></textarea><br>
+    
+        <label for="rating">Rating:</label>
+        <select name="rating" required>
+            {% for i in range(1, 6) %}
+                <option value="{{ i }}">{{ i }} Star{{ 's' if i > 1 }}</option>
+            {% endfor %}
+        </select><br>
+    
+        <button type="submit">Submit</button>
+    </form>
+
 </body>
 </html>
