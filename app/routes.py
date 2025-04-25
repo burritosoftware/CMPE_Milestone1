@@ -1,6 +1,6 @@
 from app import myapp_obj
 from flask import render_template, flash, redirect, url_for, request
-from app.forms import LoginForm, SignupForm, RecipeForm
+from app.forms import LoginForm, SignupForm, RecipeForm, EditProfileForm
 from app.models import User, Recipe, Comment
 from app import db
 from flask_login import login_required, login_user, logout_user, current_user
@@ -14,15 +14,18 @@ def main():
     return render_template("index.html")
 
 # This route allows the user to view all the recipes
-@myapp_obj.route("/recipes", methods=['GET','POST'])
+@myapp_obj.route("/recipes", methods=['GET', 'POST'])
 @login_required
 def view_all_recipes():
-    # For each recipe, we will get the title and store it in the recipes list
-    recipes = []
-    for recipe in Recipe.query.all():
-        recipes.append((recipe.title, User.query.get(recipe.author).username, recipe.id))
+    tag = request.args.get("tag", "").strip().lower()
 
-    # We will pass the recipes list to the template to allow it to create the recipes page
+    if tag:
+        filtered = Recipe.query.filter(Recipe.tags.ilike(f"%{tag}%")).all()
+    else:
+        filtered = Recipe.query.all()
+
+    recipes = [(r.title, User.query.get(r.author).username, r.id) for r in filtered]
+
     return render_template("all_recipes.html", recipes=recipes)
 
 # This route allows the user to search for recipes using title or ingredient
@@ -98,6 +101,8 @@ def signup():
     # Display signup form
     return render_template('signup.html', form=form)
 
+
+
 ### AUTHENTICATED ROUTES ###
 @myapp_obj.route("/logout")
 @login_required
@@ -116,6 +121,7 @@ def new_recipe():
                    description=form.description.data,
                    ingredients=form.ingredients.data,
                    instructions=form.instructions.data,
+                   tags=form.tags.data,
                    created=datetime.now(),
                    author=current_user.id) # Associate the recipe with the logged in user (one-to-many)
         # Save this recipe to the database
@@ -139,6 +145,7 @@ def view_single_recipe(integer):
 
     # Return recipe details page
     return render_template('view_recipe.html', recipe=recipe, user=user)
+
 
 # This route deletes a recipe
 @myapp_obj.route("/delete_recipe/<int:recipe_id>", methods=['POST'])
@@ -183,3 +190,46 @@ def add_comment(recipe_id):
 def confirm_delete(recipe_id):
     recipe = Recipe.query.get(recipe_id)
     return render_template('confirm_delete.html', recipe=recipe)
+
+@myapp_obj.route('/myprofile', methods=['GET'])
+@login_required
+def view_user_profile():
+    user = current_user
+    user_data = User(
+        id=user.id,
+        email=user.email,
+        username=user.username,
+        recipes=user.recipes,
+        comments=user.comments,
+        favorite_recipes=user.favorite_recipes
+    )
+    return render_template('view_user_profile.html', user_data=user_data)
+
+@myapp_obj.route('/edit_profile', methods=['POST'])
+@login_required
+def edit_user_profile():
+    #why is this not being viewed
+    form = EditProfileForm(obj=current_user) 
+
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.password = form.password.data
+        db.session.commit()
+        flash("profile updated")
+        return redirect(url_for('view_user_profile'))
+    return render_template('edit_profile.html', form=form)
+
+@myapp_obj.route('/toggle_favorite/<int:recipe_id>', methods=['POST'])
+@login_required
+def toggle_favorite(recipe_id):
+    recipe = Recipe.query.get_or_404(recipe_id)
+    if recipe in current_user.favorite_recipes:
+        current_user.favorite_recipes.remove(recipe)
+    else:
+        current_user.favorite_recipes.append(recipe)
+
+    db.session.commit()
+    return redirect(url_for('view_single_recipe', integer=recipe_id))
+
+
+
