@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'water.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <form action="/edit_profile" method="POST">
+      <button type="submit">Edit Profile</button>
+    </form>
+
+</head>
+<body>
+    <h1>User Profile</h1>
+
+    <ul>
+        <li><strong>ID:</strong> {{ user_data.id }}</li>
+        <li><strong>Email:</strong> {{ user_data.email }}</li>
+        <li><strong>Username:</strong> {{ user_data.username }}</li>
+    </ul>
+    <h2>Recipes</h2>
+    <ul>
+        {% for recipe in user_data.recipes%}
+            <li>{{ recipe.title or 'Untitled Recipe' }}</li>
+        {% else %}
+            <li>No recipes found.</li>
+        {% endfor %}
+    </ul>
+
+
+    <h2>Favorite Recipes</h2>
+    <ul>
+        {% for recipe in user_data.favorite_recipes %}
+            <li>{{ recipe.title or 'Untitled Recipe' }}</li>
+        {% else %}
+            <li>No recipes found.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Comments</h2>
+    <ul>
+        {% for comment in user_data.comments %}
+            <li>{{ comment.text }}</li>
+        {% else %}
+            <li>No comments found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
