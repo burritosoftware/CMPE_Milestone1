@@ -1,0 +1,14 @@
+<html>
+<head>
+    <title>Recipe App - Confirm Delete</title>
+</head>
+<body>
+    <h2>Are you sure you want to delete "{{ recipe.title }}"?</h2>
+
+    <form action="{{ url_for('delete_recipe', recipe_id=recipe.id) }}" method="POST">
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a href="{{ url_for('view_single_recipe', integer=recipe.id) }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</body>
+</html>
+
