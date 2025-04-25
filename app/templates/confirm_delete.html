@@ -1,5 +1,6 @@
 <html>
 <head>
+    {% include 'water.html' %}
     <title>Recipe App - Confirm Delete</title>
 </head>
 <body>
@@ -9,6 +10,7 @@
         <button type="submit" class="btn btn-danger">Yes, Delete</button>
         <a href="{{ url_for('view_single_recipe', integer=recipe.id) }}" class="btn btn-secondary">Cancel</a>
     </form>
+{% include 'chat_widget.html' %}
 </body>
 </html>
 
