@@ -2,7 +2,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, validators, TextAreaField
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[validators.DataRequired()])
+    username = StringField('Username', validators=[validators.DataRequired(), 
+                                                   validators.Length(min=3, max=25)])
     password = PasswordField('Password', validators=[validators.Length(min=4, max=35)])
     submit = SubmitField("Login")
     remember_me = BooleanField("Remember Me")
@@ -18,4 +19,11 @@ class RecipeForm(FlaskForm):
     description = TextAreaField('Description', validators=[validators.DataRequired()])
     ingredients = TextAreaField('Ingredients', validators=[validators.DataRequired()])
     instructions = TextAreaField('Instructions', validators=[validators.DataRequired()])
+    tags = StringField('Tags (comma-separated)', validators=[validators.Optional()])
     submit = SubmitField("Submit Recipe")
+
+class EditProfileForm(FlaskForm):
+    username = StringField('Username', validators=[validators.DataRequired(), 
+                                                   validators.Length(min=3, max=25)])
+    password = PasswordField('New Password (optional)')
+    submit = SubmitField('Update Profile')
