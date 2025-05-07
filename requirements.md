@@ -15,11 +15,10 @@
 14. Homepage or main recipe list shows all recipes available in the database.  
 15. Users can filter recipes by tags like 'vegan', 'dessert', etc.
 
-TODO: add screenshots of webpages later
-
 ## Non-functional Requirements
 1. non-functional: html should have css to increase readibility  
 2. non-functional: user can use accessibility option to select dyslexic font
+3. non-functional: website should be responsive to both light and dark mode
 
 ## Use Cases
 1. User Registration (Zyjay)
@@ -94,6 +93,7 @@ TODO: add screenshots of webpages later
 - **Primary Sequence:**
   1. Visitor selects a recipe
   2. System redirects to selected recipe’s detail view
+  3. Visitor can then view the recipe or delete, edit, and rate it
 - **Primary Postconditions:** Recipe displayed
 
 8. Search Recipe (Noah)
@@ -102,6 +102,7 @@ TODO: add screenshots of webpages later
 - **Primary Sequence:**
   1. System performs fuzzy search by title
   2. Matching recipes are shown sorted by relevance
+  3. User then selects a recipe from the results
 - **Primary Postconditions:** Search results shown
 
 9. Rate Recipe (Noah)
@@ -131,6 +132,7 @@ TODO: add screenshots of webpages later
 - **Primary Sequence:**
   1. System redirects to profile page
   2. Profile details are rendered
+  3. Option to edit the user profile is presented
 - **Primary Postconditions:** Profile viewed
 
 12. Edit User Profile (Stevie)
@@ -149,6 +151,7 @@ TODO: add screenshots of webpages later
 - **Primary Sequence:**
   1. Recipe is saved to user’s favorites
   2. System shows confirmation
+  3. User can then confirm and view the recipe in their favorites
 - **Primary Postconditions:** Recipe marked as favorite
 
 14. View All Recipes (Stevie)
@@ -157,12 +160,15 @@ TODO: add screenshots of webpages later
 - **Primary Sequence:**
   1. Recipe list page is rendered
   2. Scrollable list of recipes shown
+  3. User can choose a recipe from the list
 - **Primary Postconditions:** All recipes shown
 
 15. Filter Recipes (Stevie)
 - **Pre-condition:** Recipes are pre-tagged
 - **Trigger:** Visitor filters on “View All Recipes” page
 - **Primary Sequence:**
-  1. Visitor clicks filter and selects tags
-  2. Recipes with matching tags are shown
-- **Primary Postconditions:** Filtered recipes displayed
+  1. Visitor clicks button to filter recipes
+  2. Visitor selects tags, either one or multiple
+  3. Visitor clicks apply
+  4. Recipes with matching tags are shown
+- **Primary Postconditions:** Filtered recipes are displayed
