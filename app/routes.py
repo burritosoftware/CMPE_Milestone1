@@ -15,7 +15,6 @@ def main():
 
 # This route allows the user to view all the recipes
 @myapp_obj.route("/recipes", methods=['GET', 'POST'])
-@login_required
 def view_all_recipes():
     tag = request.args.get("tag", "").strip().lower()
 
@@ -31,7 +30,6 @@ def view_all_recipes():
 # This route allows the user to search for recipes using title or ingredient
 # keywords
 @myapp_obj.route('/search')
-@login_required
 def search():
     query = request.args.get("query", "").lower().strip()
     keywords = query.split()
@@ -68,7 +66,7 @@ def login():
 
                 next = request.args.get('next')
 
-                return redirect(next or url_for('index'))
+                return redirect(next or url_for('main'))
         
         # If the details were wrong, display an error and refresh to try again
         flash('Login details were incorrect.')

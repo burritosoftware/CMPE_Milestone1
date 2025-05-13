@@ -4,9 +4,9 @@ Share recipes with ease.
 ![Icons](https://skillicons.dev/icons?i=py,flask,sqlite)
 
 Created by the following:
-- Zyjay C. ([@burritosoftware](https://github.com/burritosoftware))
-- Stevie C. ([@xethrus-org](https://github.com/xethrus-org))
-- Noah M. ([@N-Menache](https://github.com/N-Menache))
+- Zyjay C. ([@burritosoftware](https://github.com/burritosoftware)) - Implemented func reqs 1-5, non func 2
+- Stevie C. ([@xethrus-org](https://github.com/xethrus-org)) - Implemented func reqs 6-10, non func 3
+- Noah M. ([@N-Menache](https://github.com/N-Menache)) - Implemented func reqs 11-15, non func 1
 
 # Requirments
 - [Python 3](https://python.org)
@@ -48,4 +48,4 @@ python3 run.py
 You can sign up for an account or log in to an existing account. Logged in users can create new recipes and delete any recipe. Logged out users can only see the recipe list.
 
 An example account and example recipes are included in the starter database `app.db`.  
-Log in using username `testuser` and password `usertest`, or `tacobell` and `belltaco`. You can also sign up for a new account.
+Log in using username and password `stevie`. You can also sign up for a new account.
