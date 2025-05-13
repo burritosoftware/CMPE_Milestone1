@@ -17,7 +17,7 @@
 
 ## Non-functional Requirements
 1. non-functional: html should have css to increase readibility  
-2. non-functional: user can use accessibility option to select dyslexic font
+2. non-functional: user should be able to live chat with others
 3. non-functional: website should be responsive to both light and dark mode
 
 ## Use Cases
