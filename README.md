@@ -3,12 +3,16 @@ Share recipes with ease.
 
 ![Icons](https://skillicons.dev/icons?i=py,flask,sqlite)
 
+# [Watch Demo Video](https://drive.google.com/file/d/1zhybQ9sJiCyUd6-PuN9R-ICHEClDEfHw/view)
+
+---
+
 Created by the following:
 - Zyjay C. ([@burritosoftware](https://github.com/burritosoftware)) - Implemented func reqs 1-5, non func 2
 - Stevie C. ([@xethrus-org](https://github.com/xethrus-org)) - Implemented func reqs 6-10, non func 3
 - Noah M. ([@N-Menache](https://github.com/N-Menache)) - Implemented func reqs 11-15, non func 1
 
-# Requirments
+# Requirements
 - [Python 3](https://python.org)
 - [Git](https://git-scm.com/)
 - [Required libraries in requirements.txt](requirements.txt)
