@@ -1,10 +1,11 @@
+{% include 'navbar.html' %}
 <h1>Edit Profile</h1>
 {% include 'water.html' %}
 <form method="POST">
   {{ form.hidden_tag() }}
   <p>{{ form.username.label }} {{ form.username() }}</p>
   <p>{{ form.password.label }} {{ form.password() }}</p>
-  <p>{{ form.email.label }} {{ form.email() }}</p>
   <p>{{ form.submit() }}</p>
 </form>
+{% include 'chat_widget.html' %}
 

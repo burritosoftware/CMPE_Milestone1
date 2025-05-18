@@ -7,23 +7,19 @@
 <body>
     {% include 'navbar.html' %}
 
-    <div style="margin-top: 20px;">
-        <form action="/recipes" method="POST">
-            <button type="submit">View Recipe</button>
-        </form>
-        
-        <!-- My Profile Button -->
-        <form action="/myprofile" method="GET">
-            <button type="submit">My Profile</button>
-        </form>
-    </div>
-    
-    <br>
+    <h1>Recipe Maker</h1>
+    <h2>What do you want to cook today?</h2>
     
     <!-- Search Form -->
+    
+    <h3></h3>
     <form action="/search" method="GET">
         <input type="text" name="query" placeholder="Search recipes..." required>
         <button type="submit">Search</button>
+    </form>
+    <h3>Stuck for ideas? Check out what's available!</h3>
+    <form action="/recipes" method="POST">
+        <button type="submit">View All Recipes</button>
     </form>
     <style>
       .search-bar {

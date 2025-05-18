@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>User Profile</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <h1>User Profile</h1>
+
     <form action="/edit_profile" method="POST">
       <button type="submit">Edit Profile</button>
     </form>
-
-</head>
-<body>
-    <h1>User Profile</h1>
 
     <ul>
         <li><strong>ID:</strong> {{ user_data.id }}</li>
@@ -44,6 +45,7 @@
             <li>No comments found.</li>
         {% endfor %}
     </ul>
+    {% include 'chat_widget.html' %}
 </body>
 </html>
 
