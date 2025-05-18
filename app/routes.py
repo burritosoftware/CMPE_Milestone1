@@ -214,6 +214,7 @@ def edit_user_profile():
     if form.validate_on_submit():
         current_user.username = form.username.data
         current_user.password = form.password.data
+        current_user.email = form.email.data
         db.session.commit()
         flash("profile updated")
         return redirect(url_for('view_user_profile'))

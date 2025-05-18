@@ -26,4 +26,5 @@ class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[validators.DataRequired(), 
                                                    validators.Length(min=3, max=25)])
     password = PasswordField('New Password (optional)')
+    email = StringField('Email')
     submit = SubmitField('Update Profile')
