@@ -1,6 +1,6 @@
 from app import myapp_obj
 from flask import render_template, flash, redirect, url_for, request
-from app.forms import LoginForm, SignupForm, RecipeForm, EditProfileForm
+from app.forms import LoginForm, SignupForm, RecipeForm, EditProfileForm, UpdateRecipeForm
 from app.models import User, Recipe, Comment
 from app import db
 from flask_login import login_required, login_user, logout_user, current_user
@@ -107,7 +107,8 @@ def signup():
 def logout():
     # Logout the user and bring them to the homepage
     logout_user()
-    return redirect(url_for('view_all_recipes'))
+    flash("You have been securely logged out!")
+    return redirect(url_for('main'))
 
 @myapp_obj.route("/recipe/new", methods=['GET', 'POST'])
 @login_required
@@ -131,6 +132,33 @@ def new_recipe():
     # Return recipe form page
     return render_template('create_recipe.html', form=form)
 
+@myapp_obj.route("/update_recipe/<int:recipe_id>", methods=['GET', 'POST'])
+@login_required
+def update_recipe(recipe_id):
+    r = Recipe.query.get(recipe_id)
+    form = UpdateRecipeForm(obj=r)
+
+    # Check if the author is the same as the current user
+    if r.author != current_user.id:
+        flash('You are not authorized to update this recipe.')
+        return redirect(url_for('view_single_recipe', integer=recipe_id))
+
+    if form.validate_on_submit():
+        # Edit the recipe
+        r.title = form.title.data
+        r.description = form.description.data
+        r.ingredients = form.ingredients.data
+        r.instructions = form.instructions.data
+        r.tags = form.tags.data
+        r.created = datetime.now()
+        db.session.commit()
+        # Redirect to the recipe's details
+        flash('Recipe updated successfully!')
+        return redirect(f"/recipe/{r.id}")
+    
+    # Return recipe form page
+    return render_template('update_recipe.html', form=form)
+
 # This route allows user to view details of a single recipe
 @myapp_obj.route("/recipe/<int:integer>")
 @login_required
@@ -149,9 +177,15 @@ def view_single_recipe(integer):
 @myapp_obj.route("/delete_recipe/<int:recipe_id>", methods=['POST'])
 @login_required
 def delete_recipe(recipe_id):
-    print("Deleting recipe") 
+    print("Deleting recipe")
+
     # Get the recipe ID from the route
     recipe = Recipe.query.get(recipe_id)
+
+    # Check if the author is the same as the current user
+    if recipe.author != current_user.id:
+        flash('You are not authorized to delete this recipe.')
+        return redirect(url_for('view_single_recipe', integer=recipe_id))
 
     # Delete the recipe
     db.session.delete(recipe)

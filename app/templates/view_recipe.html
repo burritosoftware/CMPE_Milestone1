@@ -7,6 +7,9 @@
     {% include 'navbar.html' %}
     
     <h1>View Recipe</h1>
+    {% for message in get_flashed_messages() %}
+    <h3>{{message}}</h3>
+    {% endfor %}
     <h2>Recipe: {{ recipe.title }}</h2>
     <h3>Author: {{ user.username }}</h3>
     
@@ -41,11 +44,15 @@
     <br />
 
     {% if current_user.is_authenticated %}
+    <h4>Actions</h4>
+    <a href="{{ url_for('update_recipe', recipe_id=recipe.id) }}" class="btn btn-danger">
+      Update Recipe
+    </a> | 
     <a href="{{ url_for('confirm_delete', recipe_id=recipe.id) }}" class="btn btn-danger">
       Delete Recipe
     </a>
     {% endif %}
-    
+
     <hr />
     <h3>Comments & Ratings</h3>
 

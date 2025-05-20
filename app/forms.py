@@ -22,6 +22,14 @@ class RecipeForm(FlaskForm):
     tags = StringField('Tags (comma-separated)', validators=[validators.Optional()])
     submit = SubmitField("Submit Recipe")
 
+class UpdateRecipeForm(FlaskForm):
+    title = StringField('Title', validators=[validators.DataRequired(), validators.Length(max=80)])
+    description = TextAreaField('Description', validators=[validators.DataRequired()])
+    ingredients = TextAreaField('Ingredients', validators=[validators.DataRequired()])
+    instructions = TextAreaField('Instructions', validators=[validators.DataRequired()])
+    tags = StringField('Tags (comma-separated)', validators=[validators.Optional()])
+    submit = SubmitField("Update Recipe")
+
 class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[validators.DataRequired(), 
                                                    validators.Length(min=3, max=25)])
