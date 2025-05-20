@@ -18,10 +18,10 @@
         <li><strong>Email:</strong> {{ user_data.email }}</li>
         <li><strong>Username:</strong> {{ user_data.username }}</li>
     </ul>
-    <h2>Recipes</h2>
+    <h2>Your Recipes</h2>
     <ul>
-        {% for recipe in user_data.recipes%}
-            <li>{{ recipe.title or 'Untitled Recipe' }}</li>
+        {% for recipe in user_data.recipes %}
+            <li><a href="/recipe/{{recipe.id}}">{{ recipe.title or 'Untitled Recipe' }}</a></li>
         {% else %}
             <li>No recipes found.</li>
         {% endfor %}
@@ -31,7 +31,7 @@
     <h2>Favorite Recipes</h2>
     <ul>
         {% for recipe in user_data.favorite_recipes %}
-            <li>{{ recipe.title or 'Untitled Recipe' }}</li>
+            <li><a href="/recipe/{{recipe.id}}">{{ recipe.title or 'Untitled Recipe' }}</a></li>
         {% else %}
             <li>No recipes found.</li>
         {% endfor %}
@@ -40,7 +40,7 @@
     <h2>Comments</h2>
     <ul>
         {% for comment in user_data.comments %}
-            <li>{{ comment.text }}</li>
+            <li><a href="/recipe/{{comment.recipe_id}}">{{ comment.content }}</a></li>
         {% else %}
             <li>No comments found.</li>
         {% endfor %}
