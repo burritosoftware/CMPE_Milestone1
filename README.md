@@ -20,8 +20,8 @@ Created by the following:
 1. Make sure you have Python, Git, and pip installed on a Linux system.
 2. Clone this repository and switch to it.
 ```bash
-git clone https://github.com/burritosoftware/hw3_pythonflask
-cd hw3_pythonflask
+git clone https://github.com/burritosoftware/CMPE_Milestone1.git
+cd CMPE_Milestone1
 ```
 3. Create a virtual environment to run the app and initiate it.
 ```bash
@@ -32,11 +32,11 @@ source venv/bin/activate
 ```bash
 pip3 install -r requirements.txt
 ```
-5. If you would like to not use the starter database, which has example recipes and example accounts, delete it.
+5. **Hello! If you're grading the project, please do not follow this step and skip to step 6, to preserve the starter database.** Otherwise, if you would like to not use the starter database, which has example recipes and example accounts, delete it.
 ```bash
 rm app/app.db
 ```
-5. Initialize the database by running these commands.
+5. Ensure the database is initialized by running these commands.
 ```bash
 flask shell
 from app import db
