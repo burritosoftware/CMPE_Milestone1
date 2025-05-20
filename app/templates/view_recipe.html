@@ -9,7 +9,7 @@
     <h1>View Recipe</h1>
     <h2>Recipe: {{ recipe.title }}</h2>
     <h3>Author: {{ user.username }}</h3>
-
+    
     {% if current_user.is_authenticated %}
       <form action="{{ url_for('toggle_favorite', recipe_id=recipe.id) }}" method="POST">
         <button type="submit">
@@ -40,10 +40,12 @@
 
     <br />
 
+    {% if current_user.is_authenticated %}
     <a href="{{ url_for('confirm_delete', recipe_id=recipe.id) }}" class="btn btn-danger">
       Delete Recipe
     </a>
-
+    {% endif %}
+    
     <hr />
     <h3>Comments & Ratings</h3>
 
